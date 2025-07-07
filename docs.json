@@ -35,12 +35,31 @@
         ]
       },
       {
-        "tab": "API Reference",
+        "tab": "Low Level Design",
         "groups": [
           {
-            "group": "API Documentation",
+            "group": "Fundamentals",
             "pages": [
-              "api-reference/introduction"
+              {
+                "group": "OO Principles",
+                "pages": [
+                  "lld/fundamentals/oop/encapsulation",
+                  "lld/fundamentals/oop/abstraction",
+                  "lld/fundamentals/oop/inheritance",
+                  "lld/fundamentals/oop/polymorphism"
+                ]
+              },
+              {
+                "group": "SOLID Principles",
+                "pages": [
+                   "lld/fundamentals/solid/intro",
+                  "lld/fundamentals/solid/srp",
+                  "lld/fundamentals/solid/ocp",
+                  "lld/fundamentals/solid/lsp",
+                  "lld/fundamentals/solid/isp",
+                  "lld/fundamentals/solid/dip"
+                ]
+              }
             ]
           },
           {

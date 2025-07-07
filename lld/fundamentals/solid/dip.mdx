@@ -1,0 +1,109 @@
+---
+title: 'Dependency Inversion Principle (DIP)'
+description: 'SOLID Principles of Object-Oriented Design (Study Notes)'
+sidebarTitle: 'Dependency Inversion Principle'
+---
+
+## Dependency Inversion Principle (DIP)
+**“High-level modules should not depend on low-level modules; both should depend on abstractions.”**
+In short, depend on abstractions, not on concrete implementations.
+
+### Purpose
+* Decouples higher-level logic from low-level details, allowing those details to change without affecting high-level code.
+* Improves maintainability and testability – you can swap out or mock lower-level components (e.g., for unit tests or new
+requirements) without rewriting the core business logic.
+* Encourages layering and reuse: common abstractions can be defined and different implementations provided (for example,
+different database backends, different notification methods, etc.), all interchangeable from the perspective of the high-level
+code.
+
+### Minimal Example
+In the first part below, ReportGenerator directly creates and uses a concrete EmailSender. This tight coupling means if
+we wanted to use a different notification method or change EmailSender, we’d have to modify ReportGenerator (a high-level
+module depending on a low-level one). The DIP-compliant solution introduces an abstract Notifier interface that
+ReportGenerator relies on. Concrete implementations like EmailNotifier and SMSNotifier can be injected into
+ReportGenerator. Now ReportGenerator depends only on the Notifier abstraction, not on any specific email/SMS class.
+```python
+class EmailSender:
+    def send_email(self, message):
+        print(f"Email: {message}")
+
+class ReportGenerator:
+    def __init__(self):
+        self.email_sender = EmailSender()   # Direct dependency on a concrete class
+    def generate_report(self):
+        # ... generate report ...
+        self.email_sender.send_email("Report ready.")  # hard-coded email notification
+
+# Applying DIP: introduce an abstraction for notifications
+class Notifier:
+    def send(self, message):
+        raise NotImplementedError
+
+class EmailNotifier(Notifier):
+    def send(self, message):
+        print(f"Email: {message}")
+
+class SMSNotifier(Notifier):
+    def send(self, message):
+        print(f"SMS: {message}")
+
+class ReportGeneratorDIP:
+    def __init__(self, notifier: Notifier):
+        self.notifier = notifier            # Depend on abstraction
+    def generate_report(self):
+        # ... generate report ...
+        self.notifier.send("Report ready.")  # Use the provided notifier, not knowing its type
+
+# Usage:
+rg = ReportGeneratorDIP(EmailNotifier())
+rg.generate_report()  # Uses email under the hood
+
+rg = ReportGeneratorDIP(SMSNotifier())
+rg.generate_report()  # Uses SMS under the hood
+
+# The high-level ReportGeneratorDIP is unaware of how notifications are sent.
+# We could even create a MockNotifier for testing or add new Notifier types without changing ReportGeneratorDIP.
+```
+### More Realistic Example
+Consider an order processing system with multiple payment providers. Without DIP, the OrderService might directly
+instantiate a specific payment processor (say, Stripe), making it hard to switch to another provider. Using DIP, we
+define an abstract PaymentProcessor interface. OrderService depends on this abstraction and is provided an implementation
+(via constructor). This way, OrderService can work with any payment processor (Stripe, PayPal, etc.) interchangeably,
+and adding a new one doesn’t require altering OrderService’s code.
+```python
+class PaymentProcessor:
+    def process_payment(self, order):
+        raise NotImplementedError
+
+class StripeProcessor(PaymentProcessor):
+    def process_payment(self, order):
+        print(f"Processing order {order['id']} via Stripe...")
+
+class PayPalProcessor(PaymentProcessor):
+    def process_payment(self, order):
+        print(f"Processing order {order['id']} via PayPal...")
+
+class OrderService:
+    def __init__(self, processor: PaymentProcessor):
+        self.processor = processor  # depends on abstract PaymentProcessor
+    def place_order(self, order):
+        # ... validate and prepare order ...
+        self.processor.process_payment(order)   # delegate payment to the injected processor
+        print("Order placed successfully.")
+
+# Usage: injecting different payment processors without changing OrderService
+order = {"id": 101, "amount": 250}
+service = OrderService(StripeProcessor())
+service.place_order(order)
+# Output: Processing order 101 via Stripe...
+#         Order placed successfully.
+
+service = OrderService(PayPalProcessor())
+service.place_order(order)
+# Output: Processing order 101 via PayPal...
+#         Order placed successfully.
+
+# OrderService is oblivious to which processor is used – we could add a new processor (e.g., ApplePayProcessor)
+# and use it here without modifying the OrderService code at all.
+
+```

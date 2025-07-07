@@ -1,0 +1,58 @@
+---
+title: 'Inheritance'
+description: 'OOP of Object-Oriented Design (Study Notes)'
+sidebarTitle: 'Inheritance'
+---
+## Inheritance
+
+**“Inheritance is the process of creating a new class (child) that inherits attributes and methods from an existing class (parent), thereby promoting code reuse.”**
+
+**Purpose & Benefits:**
+- Code reuse and DRY principle.
+- Hierarchical and extensible design.
+
+**Examples:**
+
+**Minimal Example:**
+```python
+class Animal:
+    def speak(self):
+        print("Animal speaks")
+
+class Dog(Animal):
+    def speak(self):
+        print("Woof!")
+
+class Cat(Animal):
+    def speak(self):
+        print("Meow!")
+
+pets = [Dog(), Cat()]
+for pet in pets:
+    pet.speak()
+```
+
+**Realistic Example:**
+```python
+import math
+
+class Shape:
+    def area(self):
+        raise NotImplementedError
+
+class Circle(Shape):
+    def __init__(self, r):
+        self.r = r
+    def area(self):
+        return math.pi * self.r * self.r
+
+class Rectangle(Shape):
+    def __init__(self, w, h):
+        self.w, self.h = w, h
+    def area(self):
+        return self.w * self.h
+
+shapes = [Circle(5), Rectangle(2, 3)]
+for shape in shapes:
+    print(shape.area())
+```

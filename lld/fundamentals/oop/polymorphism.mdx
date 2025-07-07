@@ -1,0 +1,44 @@
+---
+title: 'Polymorphism'
+description: 'OOP of Object-Oriented Design (Study Notes)'
+sidebarTitle: 'Polymorphism'
+---
+
+**Definition:**
+“In object-oriented programming, polymorphism is the provision of one interface to entities of different data types.”
+
+**Purpose & Benefits:**
+- Flexibility and reuse through common interfaces.
+- Method overriding.
+- Reduced coupling.
+
+**Examples:**
+
+**Minimal Example:**
+```python
+class Dog:
+    def speak(self):
+        print("Woof!")
+
+class Cat:
+    def speak(self):
+        print("Meow!")
+
+for pet in [Dog(), Cat()]:
+    pet.speak()
+```
+
+**Realistic Example:**
+```python
+class Manager:
+    def do_work(self):
+        print("Managing team")
+
+class Developer:
+    def do_work(self):
+        print("Writing code")
+
+staff = [Manager(), Developer()]
+for member in staff:
+    member.do_work()
+```

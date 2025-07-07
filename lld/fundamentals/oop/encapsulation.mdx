@@ -1,0 +1,58 @@
+---
+title: 'Encapsulation'
+description: 'OOP of Object-Oriented Design (Study Notes)'
+sidebarTitle: 'Encapsulation'
+---
+
+## Encapsulation
+
+**“Encapsulation involves wrapping data (fields) and methods in a single unit (class) and restricting direct access using access modifiers.”**
+
+**Purpose & Benefits:**
+- Data hiding and control access.
+- Clear public interfaces.
+- Improved maintainability.
+
+**Examples:**
+
+**Minimal Example:**
+```python
+class Counter:
+    def __init__(self):
+        self._count = 0
+
+    def increment(self):
+        self._count += 1
+
+    def get_count(self):
+        return self._count
+
+c = Counter()
+c.increment()
+print(c.get_count())  # Output: 1
+```
+
+**Realistic Example:**
+```python
+class BankAccount:
+    def __init__(self, initial_balance):
+        self.__balance = initial_balance
+
+    def deposit(self, amount):
+        self.__balance += amount
+
+    def withdraw(self, amount):
+        if amount <= self.__balance:
+            self.__balance -= amount
+        else:
+            print("Insufficient funds")
+
+    @property
+    def balance(self):
+        return self.__balance
+
+acct = BankAccount(100)
+acct.deposit(50)
+print(acct.balance)
+acct.withdraw(200)
+```

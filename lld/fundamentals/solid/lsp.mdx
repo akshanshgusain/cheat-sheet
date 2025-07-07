@@ -1,0 +1,90 @@
+---
+title: 'Liskov Substitution Principle (LSP)'
+description: 'SOLID Principles of Object-Oriented Design (Study Notes)'
+sidebarTitle: 'Liskov Substitution Principle'
+---
+
+## Liskov Substitution Principle (LSP)
+**“Subtypes must be substitutable for their base types without altering the correctness of the program.”**
+In practice, any class inheriting from a base class should be able to behave as the base class type without surprises or
+broken expectations.
+
+### Purpose
+* Guarantees reliable polymorphism – you can use a subclass wherever a base class is expected, without needing special case handling.
+* Exposes bad inheritance designs: if a subclass cannot fully substitute for its parent type (i.e., it violates expected behavior or contracts), the design should be reconsidered.
+* Ensures that derived classes extend (or specialize) base behavior without weakening or contradicting it (e.g., honoring all the base class’s invariants, postconditions, etc.).
+
+### Minimal Example
+A classic `LSP` violation is modeling a `Square` as a subclass of `Rectangle`. A `Rectangle` might allow independent width and
+height changes, but a `Square` (where width == height) can’t fully satisfy that contract. In the code below, notice that
+substituting a `Square` into a function that expects a `Rectangle` breaks the expected behavior (the assertion fails).
+This shows `Square` is not a true LSP-compliant subtype of `Rectangle`.
+```python
+class Rectangle:
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+    def set_width(self, w):
+        self.width = w
+    def set_height(self, h):
+        self.height = h
+    def area(self):
+        return self.width * self.height
+
+class Square(Rectangle):
+    def __init__(self, side):
+        super().__init__(side, side)
+    def set_width(self, w):
+        # Override: keep square sides equal
+        self.width = w
+        self.height = w
+    def set_height(self, h):
+        self.width = h
+        self.height = h
+
+def set_width_and_check_height(rect: Rectangle):
+    original_height = rect.height
+    rect.set_width(rect.width + 5)
+    # In a true Rectangle, changing width shouldn't affect height.
+    assert rect.height == original_height, "Height changed: LSP violated!"
+
+rect = Rectangle(10, 2)
+set_width_and_check_height(rect)    # Passes, height stays the same
+
+sq = Square(5)
+set_width_and_check_height(sq)      # Fails, Square.set_width altered the height
+# AssertionError: Height changed: LSP violated!
+```
+
+### More Realistic Example
+Consider a file writer API. A base class `FileWriter` provides a write() method. We might be tempted to create a
+`ReadOnlyFileWriter` subclass that, say, throws an error on write. However, doing so means a `ReadOnlyFileWriter` cannot
+actually substitute for a `FileWriter` – any code expecting a FileWriter would break if given the read-only variant.
+This violates LSP.
+```python
+class FileWriter:
+    def write(self, data):
+        print(f"Writing data: {data}")
+
+class ReadOnlyFileWriter(FileWriter):
+    def write(self, data):
+        # This subclass cannot fulfill the base class contract for write()
+        raise IOError("Cannot write to a read-only file")
+
+def save_data(writer: FileWriter, data):
+    # Assumes any FileWriter passed in can write data
+    writer.write(data)
+
+# Using a normal FileWriter works:
+w = FileWriter()
+save_data(w, "Hello World")  # Output: Writing data: Hello World
+
+# Substituting a ReadOnlyFileWriter breaks the expected behavior:
+rw = ReadOnlyFileWriter()
+save_data(rw, "Test")        # Raises IOError - not actually substitutable
+```
+<Info>
+    💡 LSP in practice: The example above suggests that ReadOnlyFileWriter shouldn’t subclass FileWriter at all.
+    Perhaps ReadableFile and WritableFile interfaces should be separate. Following LSP often guides us toward better
+    abstractions or the Interface Segregation Principle, described next.
+</Info>

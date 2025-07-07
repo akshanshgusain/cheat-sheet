@@ -1,0 +1,76 @@
+---
+title: 'Single Responsibility (SRP) Principle'
+description: 'SOLID Principles of Object-Oriented Design (Study Notes)'
+sidebarTitle: 'Single Responsibility'
+---
+
+## Single Responsibility Principle (SRP)
+**"A class should have only one reason to change.”** In other words, each class or module should focus on a single
+responsibility or functionality.
+
+### Purpose
+* Ensures high cohesion by keeping classes focused on one task or role.
+* Makes code easier to maintain and less prone to bugs – a change affecting one responsibility won’t unexpectedly impact others.
+* Simplifies testing, since each class has a small, well-defined behavior to verify.
+
+### Minimal Example
+Below, `TextManager` violates `SRP` by handling both text processing and file saving. We then refactor into two classes
+(`TextProcessor` and `TextFileSaver`), each with a single responsibility (one for text manipulation, one for persistence).
+```python
+# SRP Violation: one class handling two different responsibilities
+class TextManager:
+    def __init__(self, text):
+        self.text = text
+
+    def to_uppercase(self):
+        # Responsibility 1: text processing
+        self.text = self.text.upper()
+
+    def save(self, filename):
+        # Responsibility 2: saving to a file (unrelated to text processing)
+        with open(filename, 'w') as f:
+            f.write(self.text)
+
+# SRP Compliance: split into two classes, each with a single responsibility
+class TextProcessor:
+    def __init__(self, text):
+        self.text = text
+
+    def to_uppercase(self):
+        self.text = self.text.upper()
+
+class TextFileSaver:
+    def save(self, text, filename):
+        with open(filename, 'w') as f:
+            f.write(text)
+
+```
+
+### More Realistic Example
+Consider a user account system. Originally, a `UserManager` class might both create users and send welcome emails – two
+separate responsibilities. Applying `SRP`, we separate these concerns into a `UserManager` (handles user creation logic)
+and an `EmailService` (handles email sending). The `UserManager` uses `EmailService` for notifications, but its own
+responsibility is limited to user-related operations.
+
+```python
+class EmailService:
+    def send_welcome_email(self, email):
+        print(f"Sending welcome email to {email}...")
+
+class UserManager:
+    def __init__(self):
+        self.email_service = EmailService()
+
+    def register_user(self, name, email):
+        # Responsibility: create a new user (e.g., save to database)
+        print(f"User '{name}' created in the system.")
+        # Delegate email sending to EmailService (separate responsibility)
+        self.email_service.send_welcome_email(email)
+
+# Usage:
+manager = UserManager()
+manager.register_user("Alice", "alice@example.com")
+# Output:
+# User 'Alice' created in the system.
+# Sending welcome email to alice@example.com...
+```

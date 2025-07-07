@@ -1,0 +1,89 @@
+---
+title: 'Interface Segregation Principle (ISP)'
+description: 'SOLID Principles of Object-Oriented Design (Study Notes)'
+sidebarTitle: 'Interface Segregation Principle'
+---
+
+## Interface Segregation Principle (ISP)
+**“Clients should not be forced to depend on methods they do not use.”**
+In essence, large interfaces should be broken into smaller, role-specific interfaces so that implementing classes only
+need to know about the methods that matter to them.
+
+### Purpose:
+* Avoids “fat” interfaces – by splitting broad interfaces into focused ones, no class is burdened with irrelevant methods.
+* Reduces coupling and side effects: Changes to one part of an interface won’t impact classes that don’t use that part.
+* Makes implementations simpler and more flexible. A class can implement multiple small interfaces as needed, rather
+than one monolithic interface.
+
+### Minimal Example
+Imagine a multi-function printer interface that includes printing, scanning, and faxing in one. A simple printer that
+only prints would still be forced to implement (or stub out) scan() and fax() methods, which it doesn’t need – violating
+ISP. Below, MultiFunctionDevice represents such a bloated interface and OldPrinter is needlessly forced to depend on
+unused methods. The solution is to segregate the interfaces: separate Printer, Scanner, and Fax interfaces so that classes
+implement only what they actually support.
+```python
+# Big interface (violates ISP):
+class MultiFunctionDevice:
+    def print(self, doc): raise NotImplementedError
+    def scan(self, doc): raise NotImplementedError
+    def fax(self, doc):  raise NotImplementedError
+
+class OldPrinter(MultiFunctionDevice):
+    def print(self, doc):
+        print("Printing:", doc)
+    def scan(self, doc):
+        pass  # Not supported, but must implement
+    def fax(self, doc):
+        pass  # Not supported, but must implement
+
+# Interface segregation: smaller, specific interfaces
+class Printer:
+    def print(self, doc): raise NotImplementedError
+
+class Scanner:
+    def scan(self, doc): raise NotImplementedError
+
+class Fax:
+    def fax(self, doc): raise NotImplementedError
+
+class SimplePrinter(Printer):
+    def print(self, doc):
+        print("Printing:", doc)
+# SimplePrinter only implements Printer, no need for scan/fax methods.
+```
+### More Realistic Example
+Building on the printing example, we can have distinct interfaces and classes for each capability. For instance,
+PhotoPrinter implements Printer, OfficeScanner implements Scanner. A multi-function machine can be composed by combining
+a printer and a scanner implementation without any class having to implement methods it doesn’t use. This demonstrates
+how ISP enables flexible combinations of behaviors:
+```python
+class PhotoPrinter(Printer):
+    def print(self, doc):
+        print("Printing photo:", doc)
+
+class OfficeScanner(Scanner):
+    def scan(self, doc):
+        print("Scanning document:", doc)
+
+class MultiFunctionMachine(Printer, Scanner):
+    def __init__(self, printer: Printer, scanner: Scanner):
+        self.printer = printer
+        self.scanner = scanner
+    def print(self, doc):
+        # Delegate to an internal Printer
+        self.printer.print(doc)
+    def scan(self, doc):
+        # Delegate to an internal Scanner
+        self.scanner.scan(doc)
+
+# Using the segregated interfaces:
+printer = PhotoPrinter()
+scanner = OfficeScanner()
+mfp = MultiFunctionMachine(printer, scanner)  # compose a multi-function device
+
+mfp.print("image.png")   # Output: Printing photo: image.png
+mfp.scan("file.txt")     # Output: Scanning document: file.txt
+
+# We could easily swap in different implementations for each interface as needed.
+
+```

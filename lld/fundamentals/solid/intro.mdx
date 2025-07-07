@@ -1,0 +1,67 @@
+---
+title: 'SOLID Principles'
+description: 'SOLID Principles of Object-Oriented Design (Study Notes)'
+sidebarTitle: 'Introduction'
+---
+
+
+## Single Responsibility Principle (SRP)
+**"A class should have only one reason to change.”** In other words, each class or module should focus on a single
+responsibility or functionality.
+
+**Purpose**
+* Ensures high cohesion by keeping classes focused on one task or role.
+* Makes code easier to maintain and less prone to bugs – a change affecting one responsibility won’t unexpectedly impact others.
+* Simplifies testing, since each class has a small, well-defined behavior to verify.
+
+
+
+## Open/Closed Principle (OCP)
+**“Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification.”**
+This means you can add new functionality without changing existing code.
+
+**Purpose**
+* Adapts to new requirements with minimal risk: new features can be added by extending existing code (e.g. via inheritance
+or composition) rather than altering working code.
+* Prevents regressions, since existing classes remain untouched when extending behavior.
+* Encourages flexible designs using polymorphism, interfaces, or abstract classes, so that core logic remains stable over time.
+
+
+
+## Liskov Substitution Principle (LSP)
+**“Subtypes must be substitutable for their base types without altering the correctness of the program.”**
+In practice, any class inheriting from a base class should be able to behave as the base class type without surprises or
+broken expectations.
+
+**Purpose**
+* Guarantees reliable polymorphism – you can use a subclass wherever a base class is expected, without needing special case handling.
+* Exposes bad inheritance designs: if a subclass cannot fully substitute for its parent type (i.e., it violates expected behavior or contracts), the design should be reconsidered.
+* Ensures that derived classes extend (or specialize) base behavior without weakening or contradicting it (e.g., honoring all the base class’s invariants, postconditions, etc.).
+
+
+
+## Interface Segregation Principle (ISP)
+**“Clients should not be forced to depend on methods they do not use.”**
+In essence, large interfaces should be broken into smaller, role-specific interfaces so that implementing classes only
+need to know about the methods that matter to them.
+
+**Purpose**
+* Avoids “fat” interfaces – by splitting broad interfaces into focused ones, no class is burdened with irrelevant methods.
+* Reduces coupling and side effects: Changes to one part of an interface won’t impact classes that don’t use that part.
+* Makes implementations simpler and more flexible. A class can implement multiple small interfaces as needed, rather
+than one monolithic interface.
+
+
+
+## Dependency Inversion Principle (DIP)
+**“High-level modules should not depend on low-level modules; both should depend on abstractions.”**
+In short, depend on abstractions, not on concrete implementations.
+
+**Purpose**
+* Decouples higher-level logic from low-level details, allowing those details to change without affecting high-level code.
+* Improves maintainability and testability – you can swap out or mock lower-level components (e.g., for unit tests or new
+requirements) without rewriting the core business logic.
+* Encourages layering and reuse: common abstractions can be defined and different implementations provided (for example,
+different database backends, different notification methods, etc.), all interchangeable from the perspective of the high-level
+code.
+

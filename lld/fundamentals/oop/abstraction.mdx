@@ -1,0 +1,51 @@
+---
+title: 'Abstraction'
+description: 'OOP of Object-Oriented Design (Study Notes)'
+sidebarTitle: 'Abstraction'
+---
+
+## Abstraction
+**“Abstraction is the process of hiding implementation details and showing only the essential features of an object.”**
+
+**Purpose & Benefits:**
+- Focus on *what* an object does, not *how* it does it.
+- Reduces system complexity and decouples modules.
+- Encourages modularity and separates concerns.
+
+**Examples:**
+
+**Minimal Example:**
+```python
+class Shape:
+    def area(self):
+        raise NotImplementedError("Subclass must implement area()")
+
+class Square(Shape):
+    def __init__(self, side):
+        self.side = side
+    def area(self):
+        return self.side ** 2
+
+s = Square(5)
+print(s.area())  # Output: 25
+```
+
+**Realistic Example:**
+```python
+class PaymentProcessor:
+    def pay(self, amount):
+        raise NotImplementedError
+
+class PayPal(PaymentProcessor):
+    def pay(self, amount):
+        print(f"Processing ${amount} payment via PayPal")
+
+class CreditCard(PaymentProcessor):
+    def pay(self, amount):
+        print(f"Processing ${amount} payment via Credit Card")
+
+processor = PayPal()
+processor.pay(100)
+```
+
+---
