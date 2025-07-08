@@ -35,6 +35,18 @@
         ]
       },
       {
+        "tab": "DSA",
+        "groups": [
+          {
+            "group": "Fundamentals",
+            "pages": [
+              "dsa/fundamentals/computational-complexity",
+              "dsa/fundamentals/python"
+            ]
+          }
+        ]
+      },
+      {
         "tab": "Low Level Design",
         "groups": [
           {
@@ -52,7 +64,7 @@
               {
                 "group": "SOLID Principles",
                 "pages": [
-                   "lld/fundamentals/solid/intro",
+                  "lld/fundamentals/solid/intro",
                   "lld/fundamentals/solid/srp",
                   "lld/fundamentals/solid/ocp",
                   "lld/fundamentals/solid/lsp",
@@ -61,37 +73,34 @@
                 ]
               }
             ]
-          },
+          }
+        ]
+      },
+      {
+        "tab": "High Level Design",
+        "groups": [
           {
-            "group": "Endpoint Examples",
+            "group": "HLD Concepts",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "hld/concepts/cap",
+              "hld/concepts/load-balancer"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Behavioural",
+        "groups": [
+          {
+            "group": "Concepts",
+            "pages": [
+              "behavioural/competency-interviews"
             ]
           }
         ]
       }
     ],
     "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
-          "icon": "slack"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
     }
   },
   "logo": {

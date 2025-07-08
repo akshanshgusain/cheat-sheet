@@ -1,0 +1,237 @@
+---
+title: 'Python Language Fundamentals'
+description: 'Computational Complexity refers to the study of the resources (primarily time and space) required by an algorithm to solve a given computational problem as a function of the input size.'
+sidebarTitle: 'Python Fundamentals'
+---
+
+# Python Fundamentals for LeetCode & DSA Interviews
+
+Python’s expressive syntax and rich standard library make it ideal for coding interviews.
+
+## 1. Comprehensions & Unpacking
+
+### List Comprehensions
+```python
+arr = [1, 2, 3, 4]
+evens = [x for x in arr if x % 2 == 0]    # [2, 4]
+squares = [x*x for x in arr]             # [1, 4, 9, 16]
+```
+
+### Dict & Set Comprehensions
+```python
+pairs = [('a',1), ('b',2)]
+d = {k: v for k,v in pairs}               # {'a':1, 'b':2}
+unique = {x for x in arr if x%2==0}       # {2, 4}
+```
+
+### Tuple Unpacking
+```python
+x, y = 5, 10
+x, y = y, x       # swap: x=10, y=5
+a, b, *rest = [0, 1, 2, 3]  # a=0, b=1, rest=[2, 3]
+```
+
+### Generators
+```python
+gen = (x*x for x in range(100))  # generator expression
+
+def gen_range(n):
+    i = 0
+    while i < n:
+        yield i
+        i += 1
+```
+
+## 2. Iteration & Functional Tools
+
+### `enumerate()`
+Definition: `enumerate()` returns pairs of (index, value) from an iterable, allowing you to loop with both the index and the value.
+```python
+for i, val in enumerate(['a','b','c'], start=1):
+    print(i, val)
+```
+
+### `zip()`
+Definition: `zip()` aggregates elements from two or more iterables (like lists or tuples), returning tuples with one element from each iterable.
+```python
+a = [1,2,3]; b = ['x','y','z']
+for num, ch in zip(a, b):
+    print(num, ch)
+```
+
+### `map()` and `filter()`
+Definition: `map()` applies a function to every item in an iterable and returns a map object (which can be converted to a list). `filter()` filters items in an iterable based on a function that returns True or False.
+```python
+doubles = list(map(lambda x: x*2, arr))
+odds = list(filter(lambda x: x%2, arr))
+```
+
+### `any()` and `all()`
+Definition: `any()` returns True if at least one element in the iterable is true. `all()` returns True if all elements in the iterable are true.
+```python
+any(x < 0 for x in arr)
+all(x is not None for x in arr)
+```
+
+### `sorted()`, `reversed()`, and `sum()/min()/max()`
+Definition: `sorted()` returns a new sorted list from the items in an iterable. `reversed()` returns an iterator that accesses the given sequence in the reverse order. `sum()`, `min()`, and `max()` return the sum, minimum, and maximum of an iterable, respectively.
+```python
+sorted(arr)
+sorted(arr, reverse=True)
+sum(arr); min(arr); max(arr)
+list(reversed(arr))
+```
+
+### `range()`
+Definition: `range()` generates a sequence of numbers, commonly used for looping a specific number of times in for-loops.
+- Remember: `range(n)` → `0..n-1`
+
+### `itertools.chain()`
+Definition: `itertools.chain()` takes multiple iterables and returns a single iterator that produces items from the first iterable until it is exhausted, then continues to the next iterable, and so on.
+```python
+from itertools import chain
+nested = [[1, 2], [3, 4]]
+flat = list(chain.from_iterable(nested))  # [1,2,3,4]
+```
+
+## 3. Data Structures & Libraries
+
+### `collections.Counter`
+Definition: `collections.Counter` is a dict subclass for counting hashable objects. It returns a dictionary where elements are stored as keys and their counts as values.
+```python
+from collections import Counter
+cnt = Counter([1,2,2,3,1,1])
+cnt.most_common(2)  # [(1, 3), (2, 2)]
+```
+
+### `collections.defaultdict`
+Definition: `collections.defaultdict` is a dict subclass that provides a default value for nonexistent keys, avoiding KeyError.
+```python
+from collections import defaultdict
+group = defaultdict(list)
+for k,v in pairs:
+    group[k].append(v)
+```
+
+### `collections.deque`
+Definition: `collections.deque` is a double-ended queue that supports fast appends and pops from both ends.
+```python
+from collections import deque
+q = deque([start])
+while q:
+    node = q.popleft()
+    q.append(next_node)
+```
+
+### `heapq` (min-heap)
+Definition: The `heapq` module provides an implementation of the min-heap queue algorithm, also known as the priority queue algorithm.
+```python
+import heapq
+heap = []
+heapq.heappush(heap, 5)
+heapq.heappush(heap, 1)
+heapq.heappop(heap)  # 1
+```
+
+### `bisect`
+Definition: The `bisect` module provides support for maintaining a list in sorted order without having to sort the list after each insertion.
+```python
+import bisect
+a = [1,3,4,7]
+i = bisect.bisect_left(a, 5)
+a.insert(i, 5)  # [1,3,4,5,7]
+```
+
+## 4. Pythonic Idioms & Techniques
+
+### Sorting with `key=`
+```python
+people = [('alice',25), ('bob',20)]
+people.sort(key=lambda x: x[1])  # Sort by age
+min(people, key=lambda x: x[1])
+```
+
+### Lambda expressions
+```python
+lambda x: x[1]
+```
+
+### `enumerate()` + `zip()` unpacking
+```python
+for idx, (x, y) in enumerate(pairs):
+    ...
+```
+
+### `functools.lru_cache` for memoization
+Definition: `functools.lru_cache` is a decorator that caches the results of function calls, so that when the same inputs occur again, the cached result is returned instead of recomputing.
+```python
+from functools import lru_cache
+
+@lru_cache(maxsize=None)
+def fib(n):
+    ...
+```
+
+## 5. Common Pitfalls
+
+### Mutable Default Arguments
+```python
+# Bad
+def f(a=[]): a.append(1); return a
+
+# Good
+def f(a=None):
+    if a is None:
+        a = []
+    a.append(1)
+    return a
+```
+
+### Shallow vs Deep Copy
+```python
+a = [[1,2],[3,4]]
+b = list(a)          # Shallow copy
+b[0][0] = 9
+# a becomes [[9,2],[3,4]] — wrong!
+
+import copy
+b = copy.deepcopy(a)  # Deep copy
+```
+
+### Off-by-One Errors
+- `range(n)` is `0..n-1`
+- `range(len(arr))` is correct
+- Be careful with `<=` vs `<`
+
+### Integer Division
+```python
+5 / 2  # 2.5
+5 // 2  # 2 (correct for integer division)
+```
+
+### List Multiplication Pitfall
+```python
+# Wrong
+matrix = [[0]*m]*n
+
+# Correct
+matrix = [[0]*m for _ in range(n)]
+```
+
+### `is` vs `==`
+```python
+a == b  # value equality
+a is b  # identity (same object)
+```
+
+## 6. Best Practices
+
+- Use comprehensions (`[x for x in ...]`)
+- Prefer built-ins: `Counter`, `min`, `max`, `sum`, `sorted`
+- Use `defaultdict` for grouping
+- Use `heapq.nlargest` / `nsmallest` for "top K" problems
+- Sort with `key=` function
+- Cache expensive calls with `@lru_cache`
+- Avoid unnecessary loops with `map`, `filter`, `zip`, `enumerate`
+- Keep code readable and Pythonic
+
