@@ -48,4 +48,10 @@ processor = PayPal()
 processor.pay(100)
 ```
 
----
+## How to work towards Abstract?
+To achieve abstraction, use abstract classes and interfaces
+
+## When to use Abstraction?
+- `Simplifying complex systems`: Abstraction helps provide a clean and consistent interface for complex functionality. For example, in the Shape class, abstraction allows users to call area () without understanding the mathematical calculations, making the system easier to use.
+- `Promoting code flexibility`: When you anticipate that subclasses will provide specific implementations of generalized behavior, abstraction becomes essential. The Shape class's abstract area) method ensures that shapes like circles or rectangles implement their area calculations, allowing flexibility in design.
+- `Supporting extensibility`: Abstraction makes it easier to extend systems without modifying existing code. For instance, adding a new shape like Triangle to the Shape hi erarchy only requires implementing area(), without changing existing code that uses shapes.

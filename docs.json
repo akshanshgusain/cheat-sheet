@@ -58,6 +58,7 @@
                   "lld/fundamentals/oop/encapsulation",
                   "lld/fundamentals/oop/abstraction",
                   "lld/fundamentals/oop/inheritance",
+                  "lld/fundamentals/oop/composition",
                   "lld/fundamentals/oop/polymorphism"
                 ]
               },

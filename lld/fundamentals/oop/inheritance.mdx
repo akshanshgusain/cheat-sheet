@@ -56,3 +56,16 @@ shapes = [Circle(5), Rectangle(2, 3)]
 for shape in shapes:
     print(shape.area())
 ```
+
+## When to use Inheritance?
+Inheritance is particularly useful in the following scenarios:
+- Whenever we encounter an 'is-a' relationship between objects, we can use inheritance.
+- When multiple classes share common attributes or methods, a superclass can define them once, allowing all subclasses to inherit them and avoid duplication.
+- When classes form a natural hierarchy, such as Animal being a parent to Dog and Cat, inheritance organizes the structure clearly.
+
+## Drawbacks of Inheritance
+While Inheritance promotes code reuse, its overuse can complicate designs. Here are the key drawbacks to consider:
+- `Tight coupling`: Subclasses depend heavily on their superclass. Changes to the super-class, such as modifying the Animal class's eat) method, can break subclasses like Dog or Cat, making the code harder to maintain.
+- `Inappropriate behavior inheritance`: Inheritance can force subclasses to inherit behaviors that don't apply. For example, adding a fly() method to the Animal superclass assumes all subclasses (e.g., Penguin) can fly, leading to errors or awkward workarounds like throwing exceptions.
+- `Limited flexibility`: Inheritance locks in relationships at design time. If you later need a RobotDog that barks but doesn't eat, it can't inherit from Animal without inheriting irrelevant methods.
+To address these issues, consider alternatives like composition (combining objects) or in-terfaces, which offer flexibility and loose coupling

@@ -1,0 +1,57 @@
+---
+title: 'Composition'
+description: 'OOP of Object-Oriented Design (Study Notes)'
+sidebarTitle: 'Composition'
+---
+
+**Composition is a design principle where one class contains objects of other classes to reuse functionality instead of inheriting it.**
+
+## Inheritance vs Composition
+
+| Feature         | Inheritance                                | Composition                               |
+|:----------------|:-------------------------------------------|:------------------------------------------|
+| **Goal**        | Reuse behavior via "is-a" relationship     | Reuse behavior via "has-a" relationship   |
+| **Coupling**    | Tight coupling                             | Loose coupling                            |
+| **Flexibility** | Less flexible to change                    | More flexible and modular                 |
+| **Code Reuse**  | Inherits all parent behavior               | Reuses specific behavior only when needed |
+| **Use When**    | Natural hierarchy exists                   | You want to compose behavior dynamically  |
+| **Downsides**   | Fragile base class problem, tight coupling | May involve more boilerplate              |
+
+## When to use Composition?
+- You want to combine behaviors flexibly.
+
+- You're designing for loose coupling and testability.
+
+- You want to avoid unintended inheritance side effects.
+
+## Inheritance vs Composition Minimal example
+
+```python Inheritance
+class Animal:
+    def speak(self):
+        print("Animal sound")
+
+class Dog(Animal):
+    def speak(self):
+        print("Woof!")
+
+dog = Dog()
+dog.speak()  # Output: Woof!
+```
+
+```python Composition
+class Engine:
+    def start(self):
+        print("Engine started")
+
+class Car:
+    def __init__(self):
+        self.engine = Engine()
+
+    def start(self):
+        self.engine.start()
+
+car = Car()
+car.start()  # Output: Engine started
+
+```

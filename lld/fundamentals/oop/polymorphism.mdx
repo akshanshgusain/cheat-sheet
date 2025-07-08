@@ -5,12 +5,28 @@ sidebarTitle: 'Polymorphism'
 ---
 
 **Definition:**
-“In object-oriented programming, polymorphism is the provision of one interface to entities of different data types.”
+“In object-oriented programming, polymorphism is the concept of implementing objects that can take on multiple forms or behave differently
+depending on the context, all within a common interface.”
 
 **Purpose & Benefits:**
 - Flexibility and reuse through common interfaces.
 - Method overriding.
 - Reduced coupling.
+
+## Types of Polymorphism
+Polymorphism in object-oriented programming is typically categorised into 2 main types:
+
+### `Compile-Time(Static)`
+Method overloading allows a class to have multiple methods with the same name but different parameters. The compiler
+determines the appropriate method to call based on the number and type of arguments passed during compile time. Method
+overloading enhances code readability by using the same method name for similar operations with different parameters.
+
+### `Run-Time(Dynamic)`
+Method overriding occurs when a subclass provides a specific implementation for a method already defined in its
+superclass. The method to be executed is determined at runtime based on the actual type of the object, not the reference
+type. This is often referred to as dynamic dispatch, a hallmark of runtime polymorphism.
+
+
 
 **Examples:**
 
