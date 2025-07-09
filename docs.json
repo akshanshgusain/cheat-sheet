@@ -86,8 +86,11 @@
               {
                 "group": "Primer",
                 "pages": [
+                  "hld/fundamentals/primer/scalability",
                   "hld/fundamentals/primer/fallacies",
                   "hld/fundamentals/primer/cap",
+                  "hld/fundamentals/primer/consistency-patterns",
+                  "hld/fundamentals/primer/availability-patterns",
                   "hld/fundamentals/primer/load-balancer"
                 ]
               }
