@@ -1,0 +1,44 @@
+---
+title: 'Fallacies of Distributes Systems'
+description: ''
+sidebarTitle: 'Fallacies'
+---
+
+## 1. Network is always Reliable
+You cannot assume the network is reliable and not worry about network issues. The truth is that networks are more
+reliable than they used to be. However, they aren’t 100% reliable. When designing and writing your applications,
+don’t forget to account for network failures.
+
+## 2. Latency is Zero
+Imagine two applications on the same computer talking to each other. The latency, in this case, will be close to zero,
+but it won’t be zero. If we introduce a network between the applications, the latency will always be greater than zero.
+
+## 3. Infinite Bandwidth
+At first, it might seem like there’s plenty of bandwidth. However, when a system has tens or hundreds of services, the
+amount of communication and data sent back and forth increases significantly. For example, it’s predicted that
+self-driving cars will produce from 400 GB to 5 TB of data an hour. Design your applications with bandwidth usage in mind.
+
+## 4. Network is Secure
+This fallacy can be fatal. Security and embracing a defense-in-depth approach must be a priority when designing your
+applications. It’s not a question if your system will be attacked; it’s a question of when it will be attacked.
+
+## 5. Topology Doesn't Change
+Indeed, topology doesn’t change when you’re running applications on your computer. But when you deploy the applications
+to the cloud, the network topology is out of your control. The cloud provider upgrades and changes the network equipment,
+machines are turned off and new ones are created, and so on. You can’t rely on constant topology in the cloud.
+
+## 6. There is one Administrator
+In the past, it was common to have a single person responsible for maintaining environments, installing and upgrading
+applications, and so on. However, that approach has changed with the shift to modern cloud architectures and DevOps
+practices.
+
+## 7. Transport Cost is Zero
+You can think about transport costs in two ways:\
+- There’s a cost to network with most cloud providers. Sometimes, the network ingress is free. However, there’s is a
+cost to the network egress or when you’re moving data out of the cloud providers’ network.
+- There’s a cost to object serialization and deserialization. Both operations can be expensive in terms of performance.
+
+## 8. Network is Homogeneous
+Networks are not homogeneous or of the same kind. Instead, networks are heterogeneous. You can’t assume that the network
+hardware always stays the same. The key point is to focus on standard protocols so that components can communicate,
+regardless of the hardware.

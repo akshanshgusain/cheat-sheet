@@ -81,7 +81,20 @@
         "tab": "High Level Design",
         "groups": [
           {
-            "group": "HLD Concepts",
+            "group": "HLD Fundamentals",
+            "pages": [
+              {
+                "group": "Primer",
+                "pages": [
+                  "hld/fundamentals/primer/fallacies",
+                  "hld/fundamentals/primer/cap",
+                  "hld/fundamentals/primer/load-balancer"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "HLD Case Studies",
             "pages": [
               "hld/concepts/cap",
               "hld/concepts/load-balancer"
