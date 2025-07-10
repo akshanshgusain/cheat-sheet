@@ -91,7 +91,8 @@
                   "hld/fundamentals/primer/cap",
                   "hld/fundamentals/primer/consistency-patterns",
                   "hld/fundamentals/primer/availability-patterns",
-                  "hld/fundamentals/primer/load-balancer"
+                  "hld/fundamentals/primer/load-balancer",
+                  "hld/fundamentals/primer/dns"
                 ]
               }
             ]
