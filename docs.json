@@ -94,7 +94,27 @@
                   "hld/fundamentals/primer/load-balancer",
                   "hld/fundamentals/primer/reverse-proxy",
                   "hld/fundamentals/primer/dns",
-                  "hld/fundamentals/primer/cdn"
+                  "hld/fundamentals/primer/cdn",
+                  {
+                    "group": "Database",
+                    "pages": [
+                      "hld/fundamentals/primer/db/intro",
+                      {
+                        "group": "SQL",
+                        "pages": [
+                          "hld/fundamentals/primer/db/sql/acid",
+                          "hld/fundamentals/primer/db/sql/scale"
+                        ]
+                      },
+                      {
+                        "group": "NoSQL",
+                        "pages": [
+                           "hld/fundamentals/primer/db/sql/acid"
+                        ]
+                      },
+                      "hld/fundamentals/primer/db/sql-vs-nosql"
+                    ]
+                  }
                 ]
               }
             ]

@@ -23,16 +23,39 @@ Load balancers can be implemented with hardware (expensive) or with software suc
 To protect against failures, it's common to set up multiple load balancers, either in
 [active-passive or active-active mode](/hld/fundamentals/primer/availability-patterns#fail-over).
 
-### Routing
+## Load Balancing Algorithms
 
-Load balancers can route traffic based on various metrics, including:
+### Dynamic
+Dynamic load balancing uses algorithms that take into account the current state of each server and distribute traffic
+accordingly.
 
-- Random
-- Least loaded
-- Session/cookies
-- Round robin or weighted round robin
-- Layer 4
-- Layer 7
+1. **Least connection**
+Checks which servers have the fewest connections open at the time and sends traffic to those servers. This assumes all
+connections require roughly equal processing power.
+2. **Weighted least connection**
+Gives administrators the ability to assign different weights to each server, assuming that some servers can handle more
+connections than others.
+3. **Weighted response time**
+Averages the response time of each server, and combines that with the number of connections each server has open to
+determine where to send traffic. By sending traffic to the servers with the quickest response time, the algorithm ensures
+faster service for users.
+4. **Resource-Based**
+Distributes load based on what resources each server has available at the time. Specialized software (called an "agent")
+running on each server measures that server's available CPU and memory, and the load balancer queries the agent before
+distributing traffic to that server.
+
+### Static
+1. **Round-robin**
+ Round robin load balancing distributes traffic to a list of servers in rotation using the Domain Name System
+(DNS). An authoritative nameserver will have a list of different A records for a domain and provides a different
+one in response to each DNS query.
+2. **Weighted round-robin**
+Allows an administrator to assign different weights to each server. Servers deemed able to handle more traffic will
+receive slightly more. Weighting can be configured within DNS records.
+3. **IP Hash**
+Combines incoming traffic's source and destination IP addresses and uses a mathematical function to convert it
+into a hash. Based on the hash, the connection is assigned to a specific server.
+
 
 ## Layer 4 vs. Layer 7 Load Balancers
 
