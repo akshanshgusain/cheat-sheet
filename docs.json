@@ -111,7 +111,8 @@
                         "pages": [
                            "hld/fundamentals/primer/db/nosql/nosql",
                            "hld/fundamentals/primer/db/nosql/key-value",
-                           "hld/fundamentals/primer/db/nosql/document"
+                           "hld/fundamentals/primer/db/nosql/document",
+                           "hld/fundamentals/primer/db/nosql/wide-column"
                         ]
                       },
                       "hld/fundamentals/primer/db/sql-vs-nosql"
