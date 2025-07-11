@@ -118,7 +118,8 @@
                       },
                       "hld/fundamentals/primer/db/sql-vs-nosql"
                     ]
-                  }
+                  },
+                   "hld/fundamentals/primer/cache"
                 ]
               }
             ]
