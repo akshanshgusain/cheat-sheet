@@ -72,7 +72,7 @@ best for your use case.**
 ### Cache-Aside
 
 <Frame>
-    <img src="/images/cache-aside.png" alt="Cache-Aside" />
+    <img src="images/cache-aside.png" alt="Cache-Aside" />
 </Frame>
 
 The application is responsible for reading and writing from storage. The cache does not interact with storage directly.
@@ -104,7 +104,7 @@ When a node fails, it is replaced by a new, empty node, increasing latency.
 
 ### Write-Through
 <Frame>
-    <img src="/images/write-through.png" alt="Write-Through" />
+    <img src="images/write-through.png" alt="Write-Through" />
 </Frame>
 
 The application uses the cache as the main data store, reading and writing data to it, while the cache is responsible
@@ -134,7 +134,7 @@ the database. Cache-aside in conjunction with write through can mitigate this is
 
 ### Write-Behind (write-back)
 <Frame>
-    <img src="/images/write-behind.png"/>
+    <img src="images/write-behind.png"/>
 </Frame>
 In write-behind, the application does the following:
 
@@ -147,7 +147,7 @@ It is more complex to implement write-behind than it is to implement cache-aside
 
 ### Refresh-ahead
 <Frame>
-    <img src="/images/refresh-ahead.png"/>
+    <img src="images/refresh-ahead.png"/>
 </Frame>
 
 You can configure the cache to automatically refresh any recently accessed cache entry prior to its expiration.
